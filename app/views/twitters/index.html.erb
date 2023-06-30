@@ -1,14 +1,32 @@
 <p style="color: green"><%= notice %></p>
+ <%= link_to 'Twittear', new_twitter_path, :class => "btn btn-primary" %>
+<p></p>
+<%= form_with url: twitters_path, method: :get do |form|%>
+ <%= form.text_field :query_text, placeholder: t('Query'), value: params[:query_text]%>
+<%end%>
+<p></p>
 
-<h1>Twitters</h1>
+ <% @twitters.each do |twitter| %>
+     <div class="card text-left mb-4 w-50 p-3">
+        <div class="card-header">
+          @<%= twitter.username%>
+        </div>
+        <div class="card-body">
+          <figure class="text-center">
+              <blockquote class="blockquote">
+                <p> </p>
+              </blockquote>
+              <figcaption class="blockquote-footer">
+              <%= twitter.desciption %>
+              </figcaption>
+            </figure>
+             <div class="btn btn-primary">
+          <%= link_to 'Ver este Twit', twitter, :class => "btn" %> |
+      </div>
+        </div>
+     
+       
+      </div>
 
-<div id="twitters">
-  <% @twitters.each do |twitter| %>
-    <%= render twitter %>
-    <p>
-      <%= link_to "Show this twitter", twitter %>
-    </p>
-  <% end %>
-</div>
-
-<%= link_to "New twitter", new_twitter_path %>
+ <% end %>
+<%== pagy_nav(@pagy) if @pagy.pages > 1 %>
